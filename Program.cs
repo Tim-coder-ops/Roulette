@@ -8,16 +8,18 @@ namespace Roulette
 
     class Program
     {
-        static Tuple<int, string> userBet = new Tuple<int, string>(0, "null");
+        static Tuple<int, string, bool> userBet = new Tuple<int, string, bool>(0, "null", true);
         static Tuple<string, int> rollResults = new Tuple<string, int>("null", 0);
         static int totalMoney = 0;
         static int rollBet = 0;
+         
         static void getWins()
         {
             int rollNum = rollResults.Item2;
             string rollColor = rollResults.Item1;
             string betType = userBet.Item2;
             int betSpecific = userBet.Item1;
+            bool isHorizontal = userBet.Item3; 
 
             Console.WriteLine($"\nThe roll was {rollNum}, {rollColor}.");
             if(betType == "numberBet" )
@@ -25,7 +27,7 @@ namespace Roulette
                 if (betSpecific == rollNum)
                 {
                     totalMoney += rollBet * 35;
-                    Console.WriteLine($"Nice! You won ${(rollBet * 35) - rollBet}!\n" +
+                    Console.WriteLine($"Nice! You won ${(rollBet * 35)}!\n" +
                         $"You now have ${totalMoney}.");
                 }
                 else
@@ -127,7 +129,137 @@ namespace Roulette
                         $"You now have ${totalMoney}");
                 }
             }
-            if()
+            if(betType == "Column")
+            {
+                if(betSpecific == 1 && rollNum%3 == 1)
+                {
+                    totalMoney += rollBet * 2;
+                    Console.WriteLine($"Nice! You won ${rollBet * 2}!\n" +
+                        $"You now have ${totalMoney}");
+                }
+                else if(betSpecific == 2 && rollNum%3 == 2)
+                {
+                    totalMoney += rollBet * 2;
+                    Console.WriteLine($"Nice! You won ${rollBet * 2}!\n" +
+                        $"You now have ${totalMoney}");
+                }
+                else if(betSpecific == 3 && rollNum%3 == 0)
+                {
+                    totalMoney += rollBet * 2;
+                    Console.WriteLine($"Nice! You won ${rollBet * 2}!\n" +
+                        $"You now have ${totalMoney}");
+                }
+                else
+                {
+                    totalMoney -= rollBet;
+                    Console.WriteLine($"You lost ${rollBet}. Better luck next time!\n" +
+                        $"You now have ${totalMoney}");
+                }
+            }
+            if(betType == "Street")
+            {
+                int winNum = 0;
+                if (rollNum % 3 != 0) winNum = rollNum / 3 + 1;
+                else winNum = rollNum / 3;
+                Console.WriteLine(winNum);
+
+                if(betSpecific == winNum)
+                {
+                    totalMoney += rollBet * 11;
+                    Console.WriteLine($"Nice! You won ${rollBet * 11}!\n" +
+                        $"You now have ${totalMoney}");
+                }
+                else {
+                    totalMoney -= rollBet;
+                    Console.WriteLine($"You lost ${rollBet}. Better luck next time!\n" +
+                        $"You now have ${totalMoney}");
+                }
+            }
+
+            if(betType == "DoubleRows")
+            {
+                int winNum = 0;
+                if (rollNum % 6 != 0) winNum = rollNum / 6 + 1;
+                else winNum = rollNum / 6;
+
+                if (betSpecific == winNum)
+                {
+                    totalMoney += rollBet * 5;
+                    Console.WriteLine($"Nice! You won ${rollBet * 5}!\n" +
+                        $"You now have ${totalMoney}");
+                }
+                else
+                {
+                    totalMoney -= rollBet;
+                    Console.WriteLine($"You lost ${rollBet}. Better luck next time!\n" +
+                        $"You now have ${totalMoney}");
+                }
+            }
+
+            if(betType == "Split")
+            {
+                bool isWin = false;
+
+                if(isHorizontal == true )
+                {
+                    int[] horizontalNums = new int[] {1,2,2,3,4,5,5,6,7,8,8,9,10,11,11,12,13,14,14,15,16,17,17,18,19,20
+                    ,20,21,22,23,23,24,25,26,26,27,28,29,29,30,31,32,32,33,34,35,35,36};
+
+                    betSpecific = (betSpecific -1) * 2;
+                    
+                    for( int i = betSpecific; i < betSpecific + 2; i++)
+                    {
+                        if (horizontalNums[i] == rollNum) isWin = true;
+                    }
+
+                }
+                else if(isHorizontal == false && (betSpecific == rollNum || betSpecific + 3 == rollNum))
+                {
+                    isWin = true;
+                }
+
+                if(isWin == true)
+                {
+                    totalMoney += rollBet * 5;
+                    Console.WriteLine($"Nice! You won ${rollBet * 17}!\n" +
+                        $"You now have ${totalMoney}");
+                }
+                else
+                {
+                    totalMoney -= rollBet;
+                    Console.WriteLine($"You lost ${rollBet}. Better luck next time!\n" +
+                        $"You now have ${totalMoney}");
+                }
+            }
+            if (betType == "Corner")
+            {
+                int[] corners = new int[] {1,2,4,5,2,3,5,6,4,5,7,8,5,6,8,9,7,8,10,11,8,9,11,12,10,11,13,14,11,12,14,15,
+                13,14,16,17,14,15,17,18,16,17,19,20,17,18,20,21,19,20,22,23,20,21,23,23,22,23,25,25,23,24,26,27,25,26,28,29
+                ,26,27,29,30,28,29,31,32,29,30,32,33,31,32,34,35,32,33,35,36};
+
+                int index = (betSpecific - 1) *4;
+                bool win = false;
+                for(int i = index; i < index + 4; i++)
+                {
+                    if (corners[i] == rollNum)
+                    {
+                        win = true;
+                    }
+                }
+
+                if(win == true)
+                {
+                    totalMoney += rollBet * 8;
+                    Console.WriteLine($"Nice! You won ${rollBet * 8}!\n" +
+                        $"You now have ${totalMoney}");
+                }
+                else if(win == false)
+                {
+                    totalMoney -= rollBet;
+                    Console.WriteLine($"You lost ${rollBet}. Better luck next time!\n" +
+                        $"You now have ${totalMoney}");
+                }
+             }
 
             bet();
         }
@@ -142,21 +274,19 @@ namespace Roulette
                     22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,0,00};
             string[] colors = new string[] { "black", "red", "green" };
 
-            int numResult = numbers[random.Next(38)];
+            int numResult = numbers[random.Next(0,38)];
 
-            if ((numResult >= 1 && numResult <= 10) || (numResult >= 19 && numResult <= 28) &&
-                 numResult != 0 && numResult != 00)
+            if ((numResult >= 1 && numResult <= 10) || (numResult >= 19 && numResult <= 28))
             {
                 if (numResult % 2 == 0) color = colors[0];
                 else color = colors[1];
             }
-            else if ((numResult >= 11 && numResult <= 18) || (numResult >= 29 && numResult <= 36) &&
-                      numResult != 0 && numResult != 00)
+            else if ((numResult >= 11 && numResult <= 18) || (numResult >= 29 && numResult <= 36) )
             {
                 if (numResult % 2 == 0) color = colors[1];
                 else color = colors[0];
             }
-            else color = colors[2];
+            else if(numResult == 0) color = colors[2];
 
             rollResults = new Tuple<string, int>(color, numResult);
         }
@@ -165,13 +295,19 @@ namespace Roulette
         {
             string type = "";
             int number = 0;
+            bool isHorizontal = true;
 
-            if(input == 1)
+            if (input == 1)
             {
                 type = "numberBet";
 
-                Console.Write("What number would you like to bet on?:");
+                Console.Write("What number would you like to bet on? (1-36, 0, or 00):");
                 number = int.Parse(Console.ReadLine());
+                if(number <0 || number > 36)
+                {
+                    Console.WriteLine("Please enter a valid number");
+                    betSpecification(1);
+                }
             }
             else if(input == 2)
             {
@@ -204,8 +340,8 @@ namespace Roulette
             else if (input == 4)
             {
                 Console.Write("Would you like to bet highs or lows?:\n" +
-                     "1. highs(1-18)\n" +
-                     "2. lows(19-38)");
+                     "1. Lows(1-18)\n" +
+                     "2. Highs(19-38)");
                 number = int.Parse(Console.ReadLine());
 
                 if (number == 1 || number == 2) type = "HighsOrLows";
@@ -262,7 +398,7 @@ namespace Roulette
                      "12. 34-36");
                 number = int.Parse(Console.ReadLine());
 
-                if (number > 0 && number < 11) type = "Street";
+                if (number > 0 && number < 13) type = "Street";
                 else
                 {
                     Console.WriteLine("Please enter 1-10 for your option.");
@@ -293,10 +429,11 @@ namespace Roulette
 
                 Console.WriteLine("Would you like to be on a\n" +
                     "1. Horizontal Split\n" +
-                    "2. Verical Split");
+                    "2. Vertical Split");
                 splitSel = int.Parse(Console.ReadLine());
                 if (splitSel == 1)
                 {
+                    isHorizontal = true;
                     Console.WriteLine("What split would you like to bet on?\n" +
                          "Horizontal Splits:\n" +
                          "1. 1/2      2. 2/3\n" +
@@ -311,9 +448,11 @@ namespace Roulette
                          "19. 28/29   20. 29/30\n" +
                          "21. 31/32   22. 32/33\n" +
                          "23. 34/35   24. 35/36" );
+
                 }
                 else if(splitSel == 2)
                 {
+                    isHorizontal = false;
                     Console.WriteLine("What split would you like to bet on?\n" +
                         "Vertical Splits:\n" +
                         "1. 1/4      2. 2/5      3. 3/6\n" +
@@ -361,7 +500,7 @@ namespace Roulette
                     betSpecification(10);
                 }
             }
-            userBet = new Tuple<int, string>(number, type);
+            userBet = new Tuple<int, string, bool>(number, type, isHorizontal);
             dropBall();
             getWins();
         }
@@ -371,16 +510,24 @@ namespace Roulette
             int selection = 0;
             try
             {
-                Console.Write("\nHow much would you like to bet?:");
+                Console.Write("\nHow much would you like to bet?:\n" +
+                    "Enter \"0\" to quit the game:");
                 rollBet = int.Parse(Console.ReadLine());
-                if(rollBet > totalMoney)
+
+                if (rollBet == 0)
+                {
+                    goodbye();
+                    return;
+                }
+
+                if (rollBet > totalMoney)
                 {
                     Console.WriteLine($"You do not have enough money. You have ${totalMoney}. Place a lower bet please.");
                     bet();
                 }
                 Console.WriteLine();
 
-                Console.WriteLine("1. Bet on one number.\n" +
+                Console.WriteLine("1. Bet on one number\n" +
                     "2. Bet Evens or Odds\n" +
                     "3. Bet Red or Black\n" +
                     "4. Bet Highs or Lows\n" +
@@ -389,16 +536,17 @@ namespace Roulette
                     "7. Bet streets\n" +
                     "8. Bet double rows\n" +
                     "9. Bet split\n" +
-                    "10. Bet corner");
+                    "10. Bet corner\n");
                 Console.Write("Enter the number for how you would like to bet:");
                 selection = int.Parse(Console.ReadLine());
                 Console.WriteLine();
 
-                if(selection > 10|| selection < 1)
+                if(selection > 11|| selection < 1)
                 {
                     Console.WriteLine("Please enter an integer between 1 and 10.");
                     bet();
                 }
+                
             }
 
             catch
@@ -419,6 +567,11 @@ namespace Roulette
             totalMoney = int.Parse(Console.ReadLine());
             Console.WriteLine("");
             bet();
+        }
+
+        static void goodbye()
+        {
+            Console.WriteLine($"\nThank you for playing! You left the table with ${totalMoney}.");
         }
         static void Main(string[] args)
         {
