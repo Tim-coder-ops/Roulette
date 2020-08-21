@@ -1,0 +1,13 @@
+C:\Users\Timwe\source\repos\RouletteV2\RouletteV2\bin\Debug\netcoreapp3.1\RouletteV2.exe
+C:\Users\Timwe\source\repos\RouletteV2\RouletteV2\bin\Debug\netcoreapp3.1\RouletteV2.deps.json
+C:\Users\Timwe\source\repos\RouletteV2\RouletteV2\bin\Debug\netcoreapp3.1\RouletteV2.runtimeconfig.json
+C:\Users\Timwe\source\repos\RouletteV2\RouletteV2\bin\Debug\netcoreapp3.1\RouletteV2.runtimeconfig.dev.json
+C:\Users\Timwe\source\repos\RouletteV2\RouletteV2\bin\Debug\netcoreapp3.1\RouletteV2.dll
+C:\Users\Timwe\source\repos\RouletteV2\RouletteV2\bin\Debug\netcoreapp3.1\RouletteV2.pdb
+C:\Users\Timwe\source\repos\RouletteV2\RouletteV2\obj\Debug\netcoreapp3.1\RouletteV2.AssemblyInfoInputs.cache
+C:\Users\Timwe\source\repos\RouletteV2\RouletteV2\obj\Debug\netcoreapp3.1\RouletteV2.AssemblyInfo.cs
+C:\Users\Timwe\source\repos\RouletteV2\RouletteV2\obj\Debug\netcoreapp3.1\RouletteV2.csproj.CoreCompileInputs.cache
+C:\Users\Timwe\source\repos\RouletteV2\RouletteV2\obj\Debug\netcoreapp3.1\RouletteV2.dll
+C:\Users\Timwe\source\repos\RouletteV2\RouletteV2\obj\Debug\netcoreapp3.1\RouletteV2.pdb
+C:\Users\Timwe\source\repos\RouletteV2\RouletteV2\obj\Debug\netcoreapp3.1\RouletteV2.genruntimeconfig.cache
+C:\Users\Timwe\source\repos\RouletteV2\RouletteV2\obj\Debug\netcoreapp3.1\RouletteV2.csprojAssemblyReference.cache
